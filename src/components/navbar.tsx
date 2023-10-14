@@ -1,14 +1,11 @@
 "use client";
+import React from "react";
 
-import React from 'react';
+export default function Navbar() {
+	// TODO: Implement navbar
+	return (
+		<div>
 
-const Navbar = () => {
-    // TODO: Implement navbar
-    return (
-        <div>
-
-        </div>
-    );
-};
-
-export default Navbar;
+		</div>
+	);
+}
