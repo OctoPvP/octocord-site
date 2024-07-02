@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import { type NavConfig } from "@/lib/site-config";
 import { Inter as FontSans } from "next/font/google"
 
 import { GeistSans } from "geist/font/sans";
@@ -16,11 +16,11 @@ const fontSans = FontSans({
 export const metadata: Metadata = siteConfig;
 
 
-export default function RootLayout({
-  children,
-}: {
+type BaseLayoutProps = {
   children: React.ReactNode;
-}) {
+  nav: NavConfig;
+}
+const BaseLayout = (props: BaseLayoutProps) => {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body
@@ -31,10 +31,12 @@ export default function RootLayout({
       >
         <Providers>
           <div className="relative flex min-h-screen flex-col bg-background">
-            {children}
+            <SiteNav nav={props.nav} />
+            {props.children}
           </div>
         </Providers>
       </body>
     </html>
   );
 }
+export default BaseLayout;
