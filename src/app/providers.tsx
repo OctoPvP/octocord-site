@@ -7,7 +7,7 @@ import React from "react";
 const Providers = ({ children }: { children: React.ReactNode }) => {
     return (
         <TRPCReactProvider>
-            <ThemeProvider defaultTheme={"dark"} attribute={"class"} enableSystem disableTransitionOnChange>
+            <ThemeProvider forcedTheme={"dark"} attribute={"class"} enableSystem disableTransitionOnChange>
                 {children}
             </ThemeProvider>
         </TRPCReactProvider>

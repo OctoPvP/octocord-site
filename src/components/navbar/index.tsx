@@ -1,10 +1,8 @@
 
 import { MainNav } from "@/components/navbar/main";
 import { MobileNav } from "@/components/navbar/mobile";
-import { ModeToggle } from "@/components/navbar/mode-toggle";
 import SignInButton from "@/components/navbar/sign-in-btn";
-import { Button } from "@/components/ui/button";
-import { NavConfig } from "@/lib/site-config";
+import { type NavConfig } from "@/lib/site-config";
 import { getServerAuthSession } from "@/server/auth";
 
 export async function SiteNav({ nav }: { nav: NavConfig }) {
@@ -16,9 +14,9 @@ export async function SiteNav({ nav }: { nav: NavConfig }) {
         <MainNav nav={nav} />
         <MobileNav nav={nav} />
         <div className="flex flex-1 items-center space-x-2 justify-end">
-          <nav className="flex items-center">
+          {/*<nav className="flex items-center">
             <ModeToggle />
-          </nav>
+          </nav>*/}
           <SignInButton session={session} />
         </div>
       </div>

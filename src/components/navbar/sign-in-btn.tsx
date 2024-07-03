@@ -1,15 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { Session } from "next-auth";
 import { signIn } from "next-auth/react"
+import { FaArrowRight } from "react-icons/fa";
 
 type SignInButtonProps = {
-  session: Session | null
+  session: Session | null;
+  className?: string;
+  main?: boolean;
 }
-const SignInButton = ({ session }: SignInButtonProps) => {
+const SignInButton = ({ session, className, main }: SignInButtonProps) => {
   return (
-    <Button onClick={async () => {
+    <Button className={cn("w-fit", className)} onClick={async () => {
       if (session?.user) {
         window.location.href = "/dashboard";
       } else {
@@ -17,6 +21,9 @@ const SignInButton = ({ session }: SignInButtonProps) => {
       }
     }}>
       {session?.user ? "Dashboard" : "Sign in"}
+      {main && (
+        <FaArrowRight className="ml-2" />
+      )}
     </Button>
   );
 }
