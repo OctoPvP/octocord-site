@@ -2,10 +2,11 @@
 import { MainNav } from "@/components/navbar/main";
 import { MobileNav } from "@/components/navbar/mobile";
 import SignInButton from "@/components/navbar/sign-in-btn";
+import SignOutButton from "@/components/navbar/sign-out-btn";
 import { type NavConfig } from "@/lib/site-config";
 import { getServerAuthSession } from "@/server/auth";
 
-export async function SiteNav({ nav }: { nav: NavConfig }) {
+export async function SiteNav({ nav, signOut }: { nav: NavConfig; signOut?: boolean }) {
   const session = await getServerAuthSession();
 
   return (
@@ -17,7 +18,7 @@ export async function SiteNav({ nav }: { nav: NavConfig }) {
           {/*<nav className="flex items-center">
             <ModeToggle />
           </nav>*/}
-          <SignInButton session={session} />
+          {signOut ? <SignOutButton /> : <SignInButton session={session} />}
         </div>
       </div>
     </header>

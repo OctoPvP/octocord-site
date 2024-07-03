@@ -15,7 +15,7 @@ const nav = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteNav nav={nav} />
+      <SiteNav nav={nav} signOut />
       {children}
     </>
   )
