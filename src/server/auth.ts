@@ -17,6 +17,10 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      discord: {
+        accessToken: string;
+        refreshToken: string;
+      }
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -36,22 +40,35 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, token }) => {
-      console.log(token)
-      return {
+      const newSession = {
         ...session,
         user: {
           ...session.user,
           id: token.sub,
+          discord: token.discord,
         },
       };
+      // console.log(newSession)
+      return newSession;
     },
+    async jwt({ token, user, account, profile }) {
+      // console.log({ token, user, account, profile })      
+      // fetch a list of guilds the user is in
+      if (account?.provider === "discord") {
+        token.discord = {
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+        };
+      }
+      return token;
+    }
   },
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
       authorization: 
-      "https://discord.com/api/oauth2/authorize?scope=identify+email+guilds",
+      "https://discord.com/api/oauth2/authorize?scope=identify+email+guilds+guilds.members.read",
     }),
     /**
      * ...add more providers here.

@@ -1,5 +1,5 @@
-import { UserNav } from "@/components/dashboard/user-nav";
-import { SheetMenu } from "@/components/dashboard/sheet-menu";
+import { UserNav } from "@/components/dashboard/layout/user-nav";
+import { SheetMenu } from "@/components/dashboard/layout/sheet-menu";
 import { getServerAuthSession } from "@/server/auth";
 import { AnimateLeaveItem } from "@/app/components/framer/leave/animate-leave";
 

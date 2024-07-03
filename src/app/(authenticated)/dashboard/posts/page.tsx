@@ -1,5 +1,5 @@
 import { AnimationSection } from "@/app/components/framer/animation-context";
-import { ContentLayout } from "@/components/dashboard/content-layout";
+import { ContentLayout } from "@/components/dashboard/layout/content-layout";
 import { getServerAuthSession } from "@/server/auth";
 
 const Page = async () => {

@@ -1,6 +1,6 @@
 import { AnimationSection } from "@/app/components/framer/animation-context";
 import { AnimateLeaveItem } from "@/app/components/framer/leave/animate-leave";
-import { Navbar } from "@/components/dashboard/navbar";
+import { Navbar } from "@/components/dashboard/layout/navbar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { getMenuList } from "@/lib/menu-list";
 import { headers } from "next/headers";
@@ -14,7 +14,7 @@ interface ContentLayoutProps {
 
 export function ContentLayout({ title, children, ...props }: ContentLayoutProps) {
   const pathname: string = headers().get("x-pathname") ?? "/dashboard";
-  console.log("pn", pathname)
+  // console.log("pn", pathname)
   const menuConfig = getMenuList(pathname);
   // find the active submenu. if none is found find the active menu
   type BreadcrumbPath = {
@@ -24,7 +24,7 @@ export function ContentLayout({ title, children, ...props }: ContentLayoutProps)
   const breadcrumbPath: BreadcrumbPath = [];
   const found = menuConfig.find((m) => {
     const { groupLabel, menus } = m;
-    console.log({ groupLabel, menus })
+    // console.log({ groupLabel, menus })
     if (!groupLabel) return false;
     return menus.find((menu) => {
       const found = menu.submenus.find((submenu) => submenu.active);
@@ -42,7 +42,6 @@ export function ContentLayout({ title, children, ...props }: ContentLayoutProps)
       return false;
     });
   });
-  console.log("bcp", breadcrumbPath);
   // build a path from the current pathname
   const path = pathname.split("/");
   return (
@@ -64,7 +63,7 @@ export function ContentLayout({ title, children, ...props }: ContentLayoutProps)
                           <Link href={p.link}>{p.label}</Link>
                         </BreadcrumbLink>
                       ) : (
-                        p.label
+                        isLast ? <BreadcrumbPage>{p.label}</BreadcrumbPage> : p.label
                       )}
                     </BreadcrumbItem>
                   </>

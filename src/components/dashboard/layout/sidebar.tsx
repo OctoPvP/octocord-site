@@ -3,16 +3,16 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useStore } from "@/hooks/use-store";
 import { Button } from "@/components/ui/button";
-import { Menu } from "@/components/dashboard/menu";
+import { Menu } from "@/components/dashboard/layout/menu";
 import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
-import { SidebarToggle } from "@/components/dashboard/sidebar-toggle";
+import { SidebarToggle } from "@/components/dashboard/layout/sidebar-toggle";
 import { siteConfig } from "@/lib/site-config";
 import { FaCogs } from "react-icons/fa";
 
 export function Sidebar() {
   const sidebar = useStore(useSidebarToggle, (state) => state);
-  
-  if(!sidebar) return null;
+
+  if (!sidebar) return null;
 
   return (
     <aside
