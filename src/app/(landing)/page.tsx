@@ -1,9 +1,5 @@
-import Link from "next/link";
-import Typewriter from 'typewriter-effect';
-
 import { getServerAuthSession } from "@/server/auth";
 import HeaderTypewriter from "@/components/landing/header-typewriter";
-import { Button } from "@/components/ui/button";
 import SignInButton from "@/components/navbar/sign-in-btn";
 
 export default async function Home() {
