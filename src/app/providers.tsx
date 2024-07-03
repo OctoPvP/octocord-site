@@ -1,6 +1,7 @@
 "use client";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
 import React from "react";
@@ -13,9 +14,11 @@ function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 const Providers = ({ children }: { children: React.ReactNode }) => {
     return (
         <TRPCReactProvider>
-            <ThemeProvider attribute={"class"} defaultTheme="dark">
-                {children}
-            </ThemeProvider>
+            <SessionProvider>
+                <ThemeProvider attribute={"class"} defaultTheme="dark">
+                    {children}
+                </ThemeProvider>
+            </SessionProvider>
         </TRPCReactProvider>
     );
 };
