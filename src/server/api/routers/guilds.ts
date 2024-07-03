@@ -20,11 +20,12 @@ export const guildsRouter = createTRPCRouter({
     const guilds = await resp.json() as Guild[];
     const hasPermission: Guild[] = [];
     // (permissions & 0x20) === 0x20 // manage server
+    // 0x08 // administrator
     guilds.forEach(guild => {
       // permissions_new is 64 bits
       // https://discord.com/developers/docs/topics/permissions
       const permissions = BigInt(guild.permissions_new);
-      const hasManageServer = (permissions & BigInt(0x20)) === BigInt(0x20);
+      const hasManageServer = (permissions & BigInt(0x08)) === BigInt(0x08);
       if (hasManageServer) {
         hasPermission.push(guild);
       }
