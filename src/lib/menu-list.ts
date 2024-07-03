@@ -26,7 +26,8 @@ type Group = {
   menus: Menu[];
 };
 
-export function getMenuList(pathname: string): Group[] {
+export function getMenuList(_pathname?: string): Group[] {
+  const pathname = _pathname ?? "";
   return [
     {
       groupLabel: "",
@@ -34,7 +35,7 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "/dashboard",
           label: "Dashboard",
-          active: pathname.includes("/dashboard"),
+          active: pathname === "/dashboard",
           icon: LayoutGrid,
           submenus: []
         }
@@ -46,32 +47,32 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "",
           label: "Posts",
-          active: pathname.includes("/posts"),
+          active: pathname.includes("/dashboard/posts"),
           icon: SquarePen,
           submenus: [
             {
-              href: "/posts",
+              href: "/dashboard/posts",
               label: "All Posts",
-              active: pathname === "/posts"
+              active: pathname === "/dashboard/posts"
             },
             {
-              href: "/posts/new",
+              href: "/dashboard/posts/new",
               label: "New Post",
-              active: pathname === "/posts/new"
+              active: pathname === "/dashboard/posts/new"
             }
           ]
         },
         {
-          href: "/categories",
+          href: "/dashboard/categories",
           label: "Categories",
-          active: pathname.includes("/categories"),
+          active: pathname.includes("/dashboard/categories"),
           icon: Bookmark,
           submenus: []
         },
         {
-          href: "/tags",
+          href: "/dashboard/tags",
           label: "Tags",
-          active: pathname.includes("/tags"),
+          active: pathname.includes("/dashboard/tags"),
           icon: Tag,
           submenus: []
         }
@@ -81,16 +82,16 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "Settings",
       menus: [
         {
-          href: "/users",
+          href: "/dashboard/users",
           label: "Users",
-          active: pathname.includes("/users"),
+          active: pathname.includes("/dashboard/users"),
           icon: Users,
           submenus: []
         },
         {
-          href: "/account",
+          href: "/dashboard/account",
           label: "Account",
-          active: pathname.includes("/account"),
+          active: pathname.includes("/dashboard/account"),
           icon: Settings,
           submenus: []
         }

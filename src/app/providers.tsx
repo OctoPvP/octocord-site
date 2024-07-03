@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimationSection } from "@/app/components/framer/animation-context";
 import { TRPCReactProvider } from "@/trpc/react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
@@ -16,7 +17,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         <TRPCReactProvider>
             <SessionProvider>
                 <ThemeProvider attribute={"class"} defaultTheme="dark">
-                    {children}
+                    <AnimationSection delay={0}>
+                        {children}
+                    </AnimationSection>
                 </ThemeProvider>
             </SessionProvider>
         </TRPCReactProvider>

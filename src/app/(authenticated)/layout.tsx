@@ -1,22 +1,12 @@
+import AnimateLeave from "@/app/components/framer/leave/animate-leave";
 import AdminPanelLayout from "@/components/dashboard/admin-panel-layout";
-import { SiteNav } from "@/components/navbar";
-
-const nav = [
-  {
-    title: "Dashboard",
-    link: "/dashboard",
-    checkExact: true
-  },
-  {
-    title: "D1",
-    link: "/features",
-  },
-];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <AdminPanelLayout>
-      {children}
+      <AnimateLeave>
+        {children}
+      </AnimateLeave>
     </AdminPanelLayout>
   )
 }

@@ -1,6 +1,7 @@
 import { UserNav } from "@/components/dashboard/user-nav";
 import { SheetMenu } from "@/components/dashboard/sheet-menu";
 import { getServerAuthSession } from "@/server/auth";
+import { AnimateLeaveItem } from "@/app/components/framer/leave/animate-leave";
 
 interface NavbarProps {
   title: string;
@@ -13,7 +14,9 @@ export async function Navbar({ title }: NavbarProps) {
       <div className="mx-4 sm:mx-8 flex h-14 items-center">
         <div className="flex items-center space-x-4 lg:space-x-0">
           <SheetMenu />
-          <h1 className="font-bold">{title}</h1>
+          <AnimateLeaveItem fadeOnly className={""}>
+            <h1 className="font-bold">{title}</h1>
+          </AnimateLeaveItem>
         </div>
         <div className="flex flex-1 items-center space-x-2 justify-end">
           <UserNav session={session!} />

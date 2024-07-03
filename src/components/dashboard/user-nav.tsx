@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Session } from "next-auth";
 import { getUserFallbackAvatar } from "@/lib/utils";
+import { signOut } from "next-auth/react";
 
 export function UserNav({ session }: { session: Session }) {
   return (
@@ -70,7 +71,9 @@ export function UserNav({ session }: { session: Session }) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:cursor-pointer">
+        <DropdownMenuItem className="hover:cursor-pointer" onClick={async () => {
+          await signOut();
+        }}>
           <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
           Sign out
         </DropdownMenuItem>
