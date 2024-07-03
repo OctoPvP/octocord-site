@@ -1,3 +1,4 @@
+import AdminPanelLayout from "@/components/dashboard/admin-panel-layout";
 import { SiteNav } from "@/components/navbar";
 
 const nav = [
@@ -14,9 +15,8 @@ const nav = [
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <SiteNav nav={nav} signOut />
+    <AdminPanelLayout>
       {children}
-    </>
+    </AdminPanelLayout>
   )
 }
