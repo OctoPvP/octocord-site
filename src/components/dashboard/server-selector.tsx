@@ -6,11 +6,10 @@ import type { Guild } from "@/types/guild";
 import Image from "next/image";
 
 const Server = ({ guild }: { guild: Guild }) => {
-  // #27272a
   const img = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`;
   return (
-    <Card className="w-[200px] hover:scale-105 transition-all hover:drop-shadow-2xl hover:border-blue-500 hover:cursor-pointer">
-      <CardHeader className="flex flex-row justify-center w-full text-center">
+    <Card className="w-full hover:scale-105 transition-all hover:drop-shadow-2xl hover:border-blue-500 hover:cursor-pointer">
+      <CardHeader className="flex flex-row justify-center w-full text-center p-0 py-4">
         <span className="truncate w-full">
           {guild.name}
         </span>
@@ -32,9 +31,10 @@ const Server = ({ guild }: { guild: Guild }) => {
 
 const ServerSelector = () => {
   const servers = api.guilds.getGuilds.useQuery();
+  console.log(servers.data)
   return (
-    <div className="grid grid-rows-4 grid-flow-col gap-4 row-span-4">
-      {servers.data?.map(guild => (
+    <div className="w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row gap-4 col-span-4">
+      {servers.data && Object.values(servers.data).map(guild => (
         <Server key={guild.id} guild={guild} />
       ))}
     </div>

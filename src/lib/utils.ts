@@ -8,3 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 export function getUserFallbackAvatar(username: string) {
   return username.slice(0, 2).toUpperCase()
 }
+
+export function truncate(str: string | undefined, length: number) {
+  if (!str) return ""
+  return str.length > length ? str.slice(0, length) + "..." : str
+}

@@ -2,6 +2,7 @@ import { UserNav } from "@/components/dashboard/layout/user-nav";
 import { SheetMenu } from "@/components/dashboard/layout/sheet-menu";
 import { getServerAuthSession } from "@/server/auth";
 import { AnimateLeaveItem } from "@/app/components/framer/leave/animate-leave";
+import NavServerSelector from "@/components/dashboard/nav-server-selector";
 
 interface NavbarProps {
   title: string;
@@ -18,7 +19,8 @@ export async function Navbar({ title }: NavbarProps) {
             <h1 className="font-bold">{title}</h1>
           </AnimateLeaveItem>
         </div>
-        <div className="flex flex-1 items-center space-x-2 justify-end">
+        <div className="flex flex-1 items-center space-x-2 justify-end gap-4">
+          <NavServerSelector />
           <UserNav session={session!} />
         </div>
       </div>

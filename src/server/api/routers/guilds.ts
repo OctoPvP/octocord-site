@@ -7,6 +7,7 @@ import { TRPCError } from "@trpc/server";
 
 export const guildsRouter = createTRPCRouter({
   getGuilds: protectedProcedure.query(async ({ ctx, input }) => {
+    // TODO: cache this!
     const { accessToken, refreshToken } = ctx.session.user.discord;
     console.log(ctx.session);
     const resp = await fetch("https://discord.com/api/users/@me/guilds", {
@@ -30,16 +31,16 @@ export const guildsRouter = createTRPCRouter({
         hasPermission.push(guild);
       }
     });
-    // sort by owner first then name
+    // show owner guilds first
     hasPermission.sort((a, b) => {
-      if (a.owner && !b.owner) {
-        return -1;
-      }
-      if (!a.owner && b.owner) {
-        return 1;
-      }
+      if (a.owner) return -1;
+      if (b.owner) return 1;
       return a.name.localeCompare(b.name);
     });
-    return hasPermission;
+    const map: Record<string, Guild> = {};
+    hasPermission.forEach(guild => {
+      map[guild.id] = guild;
+    });
+    return map;
   }),
 });
