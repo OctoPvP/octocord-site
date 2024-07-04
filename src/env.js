@@ -23,6 +23,10 @@ export const env = createEnv({
     ),
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
+    BACKEND_TOKEN: z.string(),
+    REDIS_URI: z.string(),
+    REDIS_TOKEN: z.string(),
+    DISABLE_CACHING: z.boolean().default(false),
   },
 
   /**
@@ -44,6 +48,10 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    BACKEND_TOKEN: process.env.BACKEND_TOKEN,
+    REDIS_URI: process.env.REDIS_URI,
+    REDIS_TOKEN: process.env.REDIS_TOKEN,
+    DISABLE_CACHING: process.env.DISABLE_CACHING,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

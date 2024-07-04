@@ -1,13 +1,15 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-const useServerSelector = create(
+type ServerSelectorState = {
+  value: string | null;
+  setSelectedServer: (server: string | null) => void;
+}
+export const useServerSelector = create<ServerSelectorState>()(
   persist(
-    (set, get) => ({
-      selectedServer: null,
-      setSelectedServer: (server: string) => {
-        set({ selectedServer: server });
-      },
+    (set) => ({
+      value: null,
+      setSelectedServer: (server) => set({ value: server }),
     }),
     {
       name: "serverSelector",

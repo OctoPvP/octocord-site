@@ -20,6 +20,7 @@ declare module "next-auth" {
       discord: {
         accessToken: string;
         refreshToken: string;
+        id: string;
       }
       // ...other properties
       // role: UserRole;
@@ -58,6 +59,7 @@ export const authOptions: NextAuthOptions = {
         token.discord = {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
+          id: account.userId
         };
       }
       return token;

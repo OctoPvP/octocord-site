@@ -20,11 +20,12 @@ import { CommandList } from "cmdk";
 import { api } from "@/trpc/react";
 import { type Guild } from "@/types/guild";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useServerSelector } from "@/hooks/server-selector";
 
 const NavServerSelector = () => {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
   const servers = api.guilds.getGuilds.useQuery();
+  const serverSelector = useServerSelector();
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -34,8 +35,8 @@ const NavServerSelector = () => {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value && servers.data
-            ? truncate(servers.data?.[value]?.name ?? value, 20)
+          {serverSelector.value && servers.data
+            ? truncate(servers.data?.[serverSelector.value]?.name ?? serverSelector.value, 20)
             : "Select server..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -56,7 +57,7 @@ const NavServerSelector = () => {
                   key={server.id}
                   value={server.id}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    serverSelector.setSelectedServer(currentValue === serverSelector.value ? "" : currentValue)
                     setOpen(false)
                   }}
                   className="hover:cursor-pointer truncate"
@@ -64,7 +65,7 @@ const NavServerSelector = () => {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === server.id ? "opacity-100" : "opacity-0"
+                      serverSelector.value === server.id ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {truncate(server.name, 20)}

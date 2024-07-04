@@ -1,15 +1,21 @@
+import { get, set } from "@/lib/redis";
 import {
   createTRPCRouter,
   protectedProcedure,
 } from "@/server/api/trpc";
 import type { Guild } from "@/types/guild";
 import { TRPCError } from "@trpc/server";
+import { waitUntil } from "@vercel/functions";
 
 export const guildsRouter = createTRPCRouter({
   getGuilds: protectedProcedure.query(async ({ ctx, input }) => {
     // TODO: cache this!
-    const { accessToken, refreshToken } = ctx.session.user.discord;
-    console.log(ctx.session);
+    const { accessToken, id } = ctx.session.user.discord;
+    type GuildRecord =  Record<string, Guild>;
+    const cached = await get<GuildRecord>(`guilds:${id}`);
+    if (cached) {
+      return cached;
+    }
     const resp = await fetch("https://discord.com/api/users/@me/guilds", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -37,10 +43,11 @@ export const guildsRouter = createTRPCRouter({
       if (b.owner) return 1;
       return a.name.localeCompare(b.name);
     });
-    const map: Record<string, Guild> = {};
+    const map: GuildRecord = {};
     hasPermission.forEach(guild => {
       map[guild.id] = guild;
     });
+    waitUntil(set(`guilds:${id}`, map, { ttl: 128 }))
     return map;
   }),
 });

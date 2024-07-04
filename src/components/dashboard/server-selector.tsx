@@ -1,14 +1,18 @@
 "use client";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useServerSelector } from "@/hooks/server-selector";
 import { api } from "@/trpc/react";
 import type { Guild } from "@/types/guild";
 import Image from "next/image";
 
-const Server = ({ guild }: { guild: Guild }) => {
+const Server = ({ guild, onClick }: { guild: Guild; onClick: (id: string) => void }) => {
   const img = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`;
   return (
-    <Card className="w-full hover:scale-105 transition-all hover:drop-shadow-2xl hover:border-blue-500 hover:cursor-pointer">
+    <Card
+      className="w-full hover:scale-105 transition-all hover:drop-shadow-2xl hover:border-blue-500 hover:cursor-pointer"
+      onClick={() => onClick(guild.id)}
+    >
       <CardHeader className="flex flex-row justify-center w-full text-center p-0 py-4">
         <span className="truncate w-full">
           {guild.name}
@@ -31,11 +35,13 @@ const Server = ({ guild }: { guild: Guild }) => {
 
 const ServerSelector = () => {
   const servers = api.guilds.getGuilds.useQuery();
-  console.log(servers.data)
+  const serverSelector = useServerSelector();
   return (
     <div className="w-full grid grid-cols-2 md:grid-cols-4 grid-flow-row gap-4 col-span-4">
       {servers.data && Object.values(servers.data).map(guild => (
-        <Server key={guild.id} guild={guild} />
+        <Server key={guild.id} guild={guild} onClick={(id) => {
+          serverSelector.setSelectedServer(id);
+        }} />
       ))}
     </div>
   );

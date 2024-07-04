@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { NavConfig, siteConfig } from "@/lib/site-config";
+import { type NavConfig, siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import Link, { type LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
